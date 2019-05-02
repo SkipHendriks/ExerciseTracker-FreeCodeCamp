@@ -43,7 +43,10 @@ app.use((err, req, res, next) => {
 });
 
 
-app.post('/api/exercise/add', (req, res) => {
+app.post('/api/exercise/add', (req, res, next) => {
+  if (req.body.user.lenght < 0) {
+    next(new Error("Username undefined"));
+  }
   
 });
 
