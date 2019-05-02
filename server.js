@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+ 
 const cors = require('cors');
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true});
+
+const User = require('./models/user');
 
 app.use(cors());
 
@@ -16,6 +19,22 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
+});
+
+// [POST] endpoint for adding a user
+app.post('/api/exercise/new-user', async (req, res, next) => {
+  try {
+    if (req.body.username == '') {
+      const err = new Error("Username undefined");
+      err.status = 400;
+      throw err;
+    }
+    const new_user = new User ({username: req.body.username});
+    await new_user.save();
+    res.json({username: new_user.username, _id: new_user._id});
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Not found middleware
@@ -43,12 +62,6 @@ app.use((err, req, res, next) => {
 });
 
 
-app.post('/api/exercise/add', (req, res, next) => {
-  if (req.body.user.lenght < 0) {
-    next(new Error("Username undefined"));
-  }
-  
-});
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
