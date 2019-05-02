@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker' );
+mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true});
 
 app.use(cors());
 
