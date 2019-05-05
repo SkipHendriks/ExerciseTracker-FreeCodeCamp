@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true});
 
 const User = require('./models/user');
+const Exercise = require('./models/exercise');
 
 app.use(cors());
 
@@ -32,6 +33,44 @@ app.post('/api/exercise/new-user', async (req, res, next) => {
     const new_user = new User ({username: req.body.username});
     await new_user.save();
     res.json({username: new_user.username, _id: new_user._id});
+  } catch (err) {
+    next(err);
+  }
+});
+
+// [POST] endpoint for adding an exercise
+app.post('/api/exercise/add', async (req, res, next) => {
+  try {
+    
+    // simple verifications
+    if (req.body.userId == '') {
+      const err = new Error("userId undefined");
+      err.status = 400;
+      throw err;
+    }
+    if (req.body.duration == '') {
+      const err = new Error("duration undefined");
+      err.status = 400;
+      throw err;
+    } else if (Number.isNaN(parseInt(req.body.duration))) {
+      const err = new Error("duration is NaN");
+      err.status = 400;
+      throw err;
+    }
+    if (req.body.date == '') {
+      const err = new Error("date undefined");
+      err.status = 400;
+      throw err;
+    } else if (!/^\d\d\d\d-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])$/.test(req.body.date)) {
+      const err = new Error("date format incorrect");
+      err.status = 400;
+      throw err;
+    }
+    
+    
+    const new_exercise = new Exercise ({userId: req.body.userId, description: req.body.description, duration: req.body.duration, date: new Date(req.body.date)});
+    await new_exercise.save();
+    res.json(new_exercise);
   } catch (err) {
     next(err);
   }
