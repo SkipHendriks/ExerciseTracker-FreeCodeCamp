@@ -4,6 +4,7 @@ dependencies:
   express: 4.16.4
   mongodb: 3.2.3
   mongoose: 5.5.5
+  mongoose-int32: 0.3.1
   shortid: 2.2.14
 packages:
   /accepts/1.3.7:
@@ -333,6 +334,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-jw8UyPsq4QleZ9z+t/pIVy3L++51vKdaJ2Q/XXeYxk/3cnKioAH8H6f5tkkDivrQL4PUgUOHe9uZzkpRFH1XtQ==
+  /mongoose-int32/0.3.1:
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+    peerDependencies:
+      mongoose: '>= 4.4.0 || 5.x'
+    resolution:
+      integrity: sha512-+/lFQ7Q4ZgxK9P5Y2WYh/FnPQlncidoqAGg5HeenyjE5xjpEASTTo5rPMynErmDXvsCPYq9wGd3y/cEwBMaEXQ==
   /mongoose-legacy-pluralize/1.0.2:
     dev: false
     peerDependencies:
@@ -621,4 +630,5 @@ specifiers:
   express: ^4.16.4
   mongodb: ^3.2.3
   mongoose: ^5.5.5
+  mongoose-int32: ^0.3.1
   shortid: ^2.2.14
