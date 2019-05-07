@@ -3,8 +3,9 @@ dependencies:
   cors: 2.8.5
   express: 4.16.4
   mongodb: 3.2.3
-  mongoose: 5.5.5
+  mongoose: 5.5.6
   mongoose-int32: 0.3.1
+  mongoose-unique-validator: 2.0.3
   shortid: 2.2.14
 packages:
   /accepts/1.3.7:
@@ -271,6 +272,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6hHxsp9e6zQU8nXsP+02HGWXwTkOEw6IROhF2ZA28cYbUk4eJ6QbtZvdqZOdD9YPKghG3apk5eOCvs+tLl3lRg==
+  /lodash.foreach/4.5.0:
+    dev: false
+    resolution:
+      integrity: sha1-Gmo16s5AEoDH8G3d7DUWWrJ+PlM=
+  /lodash.get/4.4.2:
+    dev: false
+    resolution:
+      integrity: sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
   /lodash/4.17.11:
     dev: false
     resolution:
@@ -348,7 +357,16 @@ packages:
       mongoose: '*'
     resolution:
       integrity: sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
-  /mongoose/5.5.5:
+  /mongoose-unique-validator/2.0.3:
+    dependencies:
+      lodash.foreach: 4.5.0
+      lodash.get: 4.4.2
+    dev: false
+    peerDependencies:
+      mongoose: ^5.2.1
+    resolution:
+      integrity: sha512-3/8pmvAC1acBZS6eWKAWQUiZBlARE1wyWtjga4iQ2wDJeOfRlIKmAvTNHSZXKaAf7RCRUd7wh7as6yWAOrjpQg==
+  /mongoose/5.5.6:
     dependencies:
       async: 2.6.1
       bson: 1.1.1
@@ -356,7 +374,7 @@ packages:
       mongodb: 3.2.3
       mongodb-core: 3.2.3
       mongoose-legacy-pluralize: 1.0.2
-      mpath: 0.5.2
+      mpath: 0.6.0
       mquery: 3.2.0
       ms: 2.1.1
       regexp-clone: 0.0.1
@@ -367,13 +385,13 @@ packages:
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-rov43FpXDMoE22q8/iUoeSdg6zBtyTE/ZIIKRpQomASl0JOyD0479Weu9w5g0GjmP8fHmNjsWneoLIbnyGcnDQ==
-  /mpath/0.5.2:
+      integrity: sha512-XbCVIQTQgzRAPLc8t8Tw5l/uTzdRV6lDnR7Q8KCsXnaX4D1tEFybtWxesidn4WkrGi67PiIWzu5Lsu7SwKkYug==
+  /mpath/0.6.0:
     dev: false
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-NOeCoW6AYc3hLi30npe7uzbD9b4FQZKH40YKABUCCvaKKL5agj6YzvHoNx8jQpDMNPgIa5bvSZQbQpWBAVD0Kw==
+      integrity: sha512-i75qh79MJ5Xo/sbhxrDrPSEG0H/mr1kcZXJ8dH6URU5jD/knFxCVqVC/gVSW7GIXL/9hHWlT9haLbCXWOll3qw==
   /mquery/3.2.0:
     dependencies:
       bluebird: 3.5.1
@@ -629,6 +647,7 @@ specifiers:
   cors: ^2.8.5
   express: ^4.16.4
   mongodb: ^3.2.3
-  mongoose: ^5.5.5
+  mongoose: ^5.5.6
   mongoose-int32: ^0.3.1
+  mongoose-unique-validator: ^2.0.3
   shortid: ^2.2.14

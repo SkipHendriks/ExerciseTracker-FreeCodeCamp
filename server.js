@@ -1,108 +1,38 @@
+
+// TODO: https://medium.freecodecamp.org/how-to-write-a-production-ready-node-and-express-app-f214f0b17d8c
+// TODO: write tests
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-
- 
 const cors = require('cors');
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true});
+const router = require('./routes/router');
 
-const User = require('./models/user');
-const Exercise = require('./models/exercise');
+const errorHandler = require('./middlewares/error-handler');
+const notFoundHandler = require('./middlewares/not-found');
+
+const mongoose = require('mongoose');
+mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true,  useCreateIndex: true});
+
+
 
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
+// move to static router in /routers
 app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-// [POST] endpoint for adding a user
-app.post('/api/exercise/new-user', async (req, res, next) => {
-  try {
-    if (req.body.username == '') {
-      const err = new Error("Username undefined");
-      err.status = 400;
-      throw err;
-    }
-    const new_user = new User ({username: req.body.username});
-    await new_user.save();
-    res.json({username: new_user.username, _id: new_user._id});
-  } catch (err) {
-    next(err);
-  }
-});
+app.use('/api', router);
 
-// [POST] endpoint for adding an exercise
-app.post('/api/exercise/add', async (req, res, next) => {
-  try {
-    inputFormatVerifications(req.body);
-    const new_exercise = new Exercise ({userId: req.body.userId, description: req.body.description, duration: req.body.duration, date: new Date(req.body.date)});
-    await new_exercise.save();
-    res.json(new_exercise);
-  } catch (err) {
-    next(err);
-  }
-});
-
-const inputFormatVerifications = ({userId, duration, date}) => {
-  // simple synchronous verifications
-  if (userId == '') {
-    const err = new Error("userId undefined");
-    err.status = 400;
-    throw err;
-  }
-  if (duration == '') {
-    const err = new Error("duration undefined");
-    err.status = 400;
-    throw err;
-  } else if (Number.isNaN(parseInt(duration))) {
-    const err = new Error("duration is NaN");
-    err.status = 400;
-    throw err;
-  }
-  if (date == '') {
-    const err = new Error("date undefined");
-    err.status = 400;
-    throw err;
-  } else if (!/^\d\d\d\d-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\d|3[0-1])$/.test(date)) {
-    const err = new Error("date format incorrect");
-    err.status = 400;
-    throw err;
-  }
-};
-  
-
-// Not found middleware
-app.use((req, res, next) => {
-  return next({status: 404, message: 'not found'});
-});
-
-// Error Handling middleware
-app.use((err, req, res, next) => {
-  let errCode, errMessage;
-
-  if (err.errors) {
-    // mongoose validation error
-    errCode = 400; // bad request
-    const keys = Object.keys(err.errors);
-    // report the first validation error
-    errMessage = err.errors[keys[0]].message;
-  } else {
-    // generic or custom error
-    errCode = err.status || 500;
-    errMessage = err.message || 'Internal Server Error';
-  }
-  res.status(errCode).type('txt')
-    .send(errMessage);
-});
-
-
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
