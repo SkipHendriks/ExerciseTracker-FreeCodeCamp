@@ -5,7 +5,8 @@ const Int32 = require('mongoose-int32');
 const shortid = require('shortid');
 const User = require('./user');
 
-var ExerciseSchema = new Schema({
+
+var exerciseSchema = new Schema({
   userId: {
     type: String,
     required: true,
@@ -27,9 +28,11 @@ var ExerciseSchema = new Schema({
     required: true
   },
   _id: {
-    'type': String,
-    'default': shortid.generate
+    type: String,
+    default: shortid.generate,
+    required: true,
   }
 });
 
-module.exports = mongoose.model('Exercise', ExerciseSchema);
+
+module.exports = mongoose.model('Exercise', exerciseSchema);
