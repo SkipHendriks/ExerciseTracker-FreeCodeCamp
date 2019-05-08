@@ -2,17 +2,21 @@
 // TODO: https://medium.freecodecamp.org/how-to-write-a-production-ready-node-and-express-app-f214f0b17d8c
 // TODO: write tests
 
-const express = require('express');
+import express from 'express';
 const app = express();
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import bodyParser from 'body-parser';
+import cors from 'cors';
 
-const router = require('./routes/router');
+import path from 'path';
 
-const errorHandler = require('./middlewares/error-handler');
-const notFoundHandler = require('./middlewares/not-found');
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-const mongoose = require('mongoose');
+import router from './routes/router.js';
+
+import errorHandler from'./middlewares/error-handler.js';
+import notFoundHandler from './middlewares/not-found.js';
+
+import mongoose from 'mongoose';
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true,  useCreateIndex: true});
 
 

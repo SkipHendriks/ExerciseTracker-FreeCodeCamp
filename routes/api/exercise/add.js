@@ -1,11 +1,13 @@
-const Exercise = require('../../models/exercise');
-const {checkDateFormat} = require('../../utils/date');
+import Exercise from '../../../models/exercise.js';
+import {checkDateFormat} from '../../../utils/date.js';
 
 // [POST] endpoint for adding an exercise
 const addExercise = async (req, res, next) => {
   try {
-    inputFormatVerifications(req.body);
-    const new_exercise = new Exercise ({userId: req.body.userId, description: req.body.description, duration: req.body.duration, date: new Date(req.body.date)});
+    const {userId, description, duration, date:date_string} = req.body;
+    inputFormatVerifications(userId, duration, date);
+    const date = new Date(date_string);
+    const new_exercise = new Exercise ({userId, description, duration, date});
     await new_exercise.save();
     res.json(new_exercise);
   } catch (err) {
@@ -13,7 +15,7 @@ const addExercise = async (req, res, next) => {
   }
 };
 
-const inputFormatVerifications = ({userId, duration, date}) => {
+const inputFormatVerifications = (userId, duration, date) => {
   // simple synchronous verifications
   if (userId == '') {
     const err = new Error("userId undefined");
@@ -41,5 +43,4 @@ const inputFormatVerifications = ({userId, duration, date}) => {
 };
 
 
-
-module.exports = addExercise;
+export default addExercise;

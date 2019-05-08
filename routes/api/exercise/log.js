@@ -1,5 +1,5 @@
-const Exercise = require('../../models/exercise');
-const {checkDateFormat} = require('../../utils/date');
+import Exercise from '../../../models/exercise.js';
+import {checkDateFormat} from '../../../utils/date.js';
 
 // [GET] endpoint for list of exercises
 const listExercises = async (req, res, next) => {
@@ -16,7 +16,6 @@ const listExercises = async (req, res, next) => {
         query.date.$lte =  new Date(toDate);
       }
     }
-    console.log(query);
     const exercises = await Exercise.find(query).sort({date: 'asc'}).limit(parseInt(maxRecords));
     res.json(exercises);
   } catch (err) {
@@ -48,4 +47,4 @@ const inputFormatVerifications = (userId, fromDate, toDate, maxRecords) => {
   }
 };
 
-module.exports = listExercises;
+export default listExercises;

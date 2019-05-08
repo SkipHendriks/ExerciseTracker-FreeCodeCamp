@@ -1,12 +1,12 @@
     
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const Int32 = require('mongoose-int32');
-const shortid = require('shortid');
-const User = require('./user');
+import Int32 from 'mongoose-int32';
+import shortid from 'shortid';
+import User from './user.js';
 
 
-var exerciseSchema = new Schema({
+const exerciseSchema = new Schema({
   userId: {
     type: String,
     required: true,
@@ -34,5 +34,4 @@ var exerciseSchema = new Schema({
   }
 });
 
-
-module.exports = mongoose.model('Exercise', exerciseSchema);
+export default mongoose.model('Exercise', exerciseSchema);

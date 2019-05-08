@@ -16,4 +16,4 @@ const errorHandler = (err, req, res, next) => {
     .send(errMessage);
 };
 
-module.exports = errorHandler;
+export default errorHandler;

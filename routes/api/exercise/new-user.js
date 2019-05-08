@@ -1,4 +1,4 @@
-const User = require('../../models/user');
+import User from '../../../models/user.js';
 
 // [POST] endpoint for adding a user
 const newUser = async (req, res, next) => {
@@ -16,4 +16,4 @@ const newUser = async (req, res, next) => {
   }
 };
 
-module.exports = newUser;
+export default newUser;
