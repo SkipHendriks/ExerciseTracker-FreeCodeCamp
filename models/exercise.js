@@ -1,10 +1,10 @@
-    
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 import Int32 from 'mongoose-int32';
 import shortid from 'shortid';
+
 import User from './user.js';
 
+const Schema = mongoose.Schema;
 
 const exerciseSchema = new Schema({
   userId: {

@@ -1,10 +1,14 @@
 import express from 'express';
-const router = express.Router();
+import bodyParser from 'body-parser';
 
 import newUser from './new-user.js';
 import addExercise from './add.js';
 import listExercises from './log.js';
 
+const router = express.Router();
+
+router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.json());
 
 router.post('/new-user', newUser);
 router.post('/add', addExercise);

@@ -1,9 +1,8 @@
-
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 import shortid from 'shortid';
 import uniqueValidator from 'mongoose-unique-validator';
 
+const Schema = mongoose.Schema;
 
 var userSchema = new Schema({
   username: {

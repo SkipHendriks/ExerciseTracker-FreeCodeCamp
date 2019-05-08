@@ -3,38 +3,24 @@
 // TODO: write tests
 
 import express from 'express';
-const app = express();
-import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import cors from 'cors';
 
-import path from 'path';
-
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-
 import router from './routes/router.js';
-
 import errorHandler from'./middlewares/error-handler.js';
 import notFoundHandler from './middlewares/not-found.js';
 
-import mongoose from 'mongoose';
+const app = express();
+
 mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true,  useCreateIndex: true});
 
-
-
+// enable cors to allow testing by FreeCodeCamp
 app.use(cors());
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+// main router
+app.use('/', router);
 
-
-// move to static router in /routers
-app.use(express.static('public'));
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
-});
-
-app.use('/api', router);
-
+// middleware
 app.use(notFoundHandler);
 app.use(errorHandler);
 

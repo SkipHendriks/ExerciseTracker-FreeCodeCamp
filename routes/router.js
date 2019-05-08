@@ -1,8 +1,14 @@
 import express from 'express';
-const router = express.Router();
 
 import exerciseRouter from './api/exercise/router.js';
+import index from './index.js';
 
-router.use('api/exercise', exerciseRouter);
+const router = express.Router();
+
+router.use(express.static('public'));
+
+router.use('/api/exercise', exerciseRouter);
+router.get('/', index);
+
 
 export default router;
