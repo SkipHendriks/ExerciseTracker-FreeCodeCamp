@@ -2,7 +2,7 @@ dependencies:
   body-parser: 1.19.0
   cors: 2.8.5
   express: 4.16.4
-  mongodb: 3.2.3
+  mongodb: 3.2.4
   mongoose: 5.5.6
   mongoose-int32: 0.3.1
   mongoose-unique-validator: 2.0.3
@@ -334,6 +334,16 @@ packages:
       saslprep: 1.0.3
     resolution:
       integrity: sha512-UyI0rmvPPkjOJV8XGWa9VCTq7R4hBVipimhnAXeSXnuAPjuTqbyfA5Ec9RcYJ1Hhu+ISnc8bJ1KfGZd4ZkYARQ==
+  /mongodb-core/3.2.4:
+    dependencies:
+      bson: 1.1.1
+      require_optional: 1.0.1
+      safe-buffer: 5.1.2
+    dev: false
+    optionalDependencies:
+      saslprep: 1.0.3
+    resolution:
+      integrity: sha512-Ea/fjVntuj0nhLPuDPj54Kce+w4Ee6b1oSM2EvNB4OdwXJ5WIEh79st9/FRZVKwGnc2oB19P1SMSC1noOBXUCQ==
   /mongodb/3.2.3:
     dependencies:
       mongodb-core: 3.2.3
@@ -343,6 +353,15 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-jw8UyPsq4QleZ9z+t/pIVy3L++51vKdaJ2Q/XXeYxk/3cnKioAH8H6f5tkkDivrQL4PUgUOHe9uZzkpRFH1XtQ==
+  /mongodb/3.2.4:
+    dependencies:
+      mongodb-core: 3.2.4
+      safe-buffer: 5.1.2
+    dev: false
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-tjuwdRb89oyCamBG9lWkb7Sf4L/XJ0hsTC22NkbECl3j2X8n+rM+ZlK3dyIPdaJXdc4FOKIRd9dodVJgCtsYMA==
   /mongoose-int32/0.3.1:
     dev: false
     engines:
@@ -646,7 +665,7 @@ specifiers:
   body-parser: ^1.19.0
   cors: ^2.8.5
   express: ^4.16.4
-  mongodb: ^3.2.3
+  mongodb: ^3.2.4
   mongoose: ^5.5.6
   mongoose-int32: ^0.3.1
   mongoose-unique-validator: ^2.0.3
