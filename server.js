@@ -1,6 +1,7 @@
 
 // TODO: https://medium.freecodecamp.org/how-to-write-a-production-ready-node-and-express-app-f214f0b17d8c
 // TODO: write tests
+// TODO: fix '../.../..' bullshit
 
 import express from 'express';
 import mongoose from 'mongoose';
