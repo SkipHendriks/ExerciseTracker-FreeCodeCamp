@@ -14,6 +14,7 @@ router.use(bodyParser.json());
 
 router.post('/new-user', newUser);
 router.get('/users', listUsers);
+router.get('/user/:_id?', getUser);
 router.post('/add', addExercise);
 router.get('/log', listExercises);
 
