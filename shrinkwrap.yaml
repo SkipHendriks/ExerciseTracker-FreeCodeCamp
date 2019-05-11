@@ -3,7 +3,7 @@ dependencies:
   cors: 2.8.5
   express: 4.16.4
   mongodb: 3.2.4
-  mongoose: 5.5.6
+  mongoose: 5.5.7
   mongoose-int32: 0.3.1
   mongoose-unique-validator: 2.0.3
   shortid: 2.2.14
@@ -346,7 +346,7 @@ packages:
       integrity: sha512-Ea/fjVntuj0nhLPuDPj54Kce+w4Ee6b1oSM2EvNB4OdwXJ5WIEh79st9/FRZVKwGnc2oB19P1SMSC1noOBXUCQ==
   /mongodb/3.2.3:
     dependencies:
-      mongodb-core: 3.2.3
+      mongodb-core: 3.2.4
       safe-buffer: 5.1.2
     dev: false
     engines:
@@ -385,7 +385,7 @@ packages:
       mongoose: ^5.2.1
     resolution:
       integrity: sha512-3/8pmvAC1acBZS6eWKAWQUiZBlARE1wyWtjga4iQ2wDJeOfRlIKmAvTNHSZXKaAf7RCRUd7wh7as6yWAOrjpQg==
-  /mongoose/5.5.6:
+  /mongoose/5.5.7:
     dependencies:
       async: 2.6.1
       bson: 1.1.1
@@ -404,7 +404,7 @@ packages:
     engines:
       node: '>=4.0.0'
     resolution:
-      integrity: sha512-XbCVIQTQgzRAPLc8t8Tw5l/uTzdRV6lDnR7Q8KCsXnaX4D1tEFybtWxesidn4WkrGi67PiIWzu5Lsu7SwKkYug==
+      integrity: sha512-Xs4SVuMGkMRdmKZ6ATGVvbp2pjI+KENCNhPZMnksjU3ZerkJHGhWKrUE1A6e/5iZ2lTu6Oz9AOPcfrDgp6BCUw==
   /mpath/0.6.0:
     dev: false
     engines:
@@ -666,7 +666,7 @@ specifiers:
   cors: ^2.8.5
   express: ^4.16.4
   mongodb: ^3.2.4
-  mongoose: ^5.5.6
+  mongoose: ^5.5.7
   mongoose-int32: ^0.3.1
   mongoose-unique-validator: ^2.0.3
   shortid: ^2.2.14
