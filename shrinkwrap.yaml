@@ -4,6 +4,7 @@ dependencies:
   express: 4.16.4
   mongodb: 3.2.4
   mongoose: 5.5.7
+  mongoose-hidden: 1.6.1
   mongoose-int32: 0.3.1
   mongoose-unique-validator: 2.0.3
   shortid: 2.2.14
@@ -126,6 +127,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  /debug/4.1.1:
+    dependencies:
+      ms: 2.1.1
+    dev: false
+    resolution:
+      integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
   /depd/1.1.2:
     dev: false
     engines:
@@ -362,6 +369,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-tjuwdRb89oyCamBG9lWkb7Sf4L/XJ0hsTC22NkbECl3j2X8n+rM+ZlK3dyIPdaJXdc4FOKIRd9dodVJgCtsYMA==
+  /mongoose-hidden/1.6.1:
+    dependencies:
+      debug: 4.1.1
+      mpath: 0.5.2
+    dev: false
+    resolution:
+      integrity: sha512-cWRe7kFoTMwwFe3r+ODwDVdclCQPw2GUmBg19aJ1dBqZRUpkeoLq6/FTj0Lp97qgxhDz5H8gGKCEsNGHVOWwMQ==
   /mongoose-int32/0.3.1:
     dev: false
     engines:
@@ -405,6 +419,12 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-Xs4SVuMGkMRdmKZ6ATGVvbp2pjI+KENCNhPZMnksjU3ZerkJHGhWKrUE1A6e/5iZ2lTu6Oz9AOPcfrDgp6BCUw==
+  /mpath/0.5.2:
+    dev: false
+    engines:
+      node: '>=4.0.0'
+    resolution:
+      integrity: sha512-NOeCoW6AYc3hLi30npe7uzbD9b4FQZKH40YKABUCCvaKKL5agj6YzvHoNx8jQpDMNPgIa5bvSZQbQpWBAVD0Kw==
   /mpath/0.6.0:
     dev: false
     engines:
@@ -667,6 +687,7 @@ specifiers:
   express: ^4.16.4
   mongodb: ^3.2.4
   mongoose: ^5.5.7
+  mongoose-hidden: ^1.6.1
   mongoose-int32: ^0.3.1
   mongoose-unique-validator: ^2.0.3
   shortid: ^2.2.14

@@ -11,11 +11,9 @@ const listExercises = async (req, res, next) => {
     let exercises = getExercises(userId, fromDate, toDate, maxRecords);
     let exerciseCount = countExercises(userId, fromDate, toDate);
     let user = getUser(userId);
-    console.log(user);
     [user, exercises, exerciseCount] = await Promise.all([user, exercises, exerciseCount]);
     res.json({
-      _id: user._id, // posibly ...user with mongoose-hidden
-      username: user.username, // idem
+      ...user.toObject(),
       log: exercises,
       count: exerciseCount
     });

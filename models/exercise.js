@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Int32 from 'mongoose-int32';
 import shortid from 'shortid';
+import mongooseHidden from 'mongoose-hidden';
 
 import User from './user.js';
 
@@ -33,5 +34,8 @@ const exerciseSchema = new Schema({
     required: true,
   }
 });
+
+const hiddenPlugin = mongooseHidden();
+exerciseSchema.plugin(hiddenPlugin);
 
 export default mongoose.model('Exercise', exerciseSchema);

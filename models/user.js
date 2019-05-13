@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import shortid from 'shortid';
 import uniqueValidator from 'mongoose-unique-validator';
+import mongooseHidden from 'mongoose-hidden';
 
 const Schema = mongoose.Schema;
 
@@ -18,5 +19,7 @@ var userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator);
+const hiddenPlugin = mongooseHidden({defaultHidden: {__v: true}});
+userSchema.plugin(hiddenPlugin);
 
 export default mongoose.model('User', userSchema);
