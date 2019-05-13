@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+export const errorHandler = (err, req, res, next) => {
   let errCode, errMessage;
 
   if (err.errors) {
@@ -15,5 +15,3 @@ const errorHandler = (err, req, res, next) => {
   res.status(errCode).type('txt')
     .send(errMessage);
 };
-
-export default errorHandler;

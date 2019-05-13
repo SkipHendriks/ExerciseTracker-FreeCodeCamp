@@ -1,5 +1,5 @@
-import Exercise from '../../../models/exercise.js';
-import User from '../../../models/user.js';
+import {Exercise} from '../../../models/exercise.js';
+import {User} from '../../../models/user.js';
 import {checkDateFormat} from '../../../utils/date.js';
 
 // [POST] endpoint for adding an exercise
@@ -68,5 +68,4 @@ const inputVerifications = (userId, duration, date) => {
   }
 };
 
-
-export default addExercise;
+export {addExercise};

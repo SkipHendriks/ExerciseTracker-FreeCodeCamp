@@ -1,16 +1,16 @@
-// TODO: remove __v from responses using: https://www.npmjs.com/package/mongoose-hidden
 // TODO: https://medium.freecodecamp.org/how-to-write-a-production-ready-node-and-express-app-f214f0b17d8c
 // TODO: write tests
 // TODO: fix '../.../..' bullshit
+// TODO: check if original returns id with every line in log
 
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import * as Promise from 'bluebird';
 
-import router from './routes/router.js';
-import errorHandler from'./middlewares/error-handler.js';
-import notFoundHandler from './middlewares/not-found.js';
+import {router} from './routes/router.js';
+import {errorHandler} from'./middlewares/error-handler.js';
+import {notFoundHandler} from './middlewares/not-found.js';
 
 const app = express();
 

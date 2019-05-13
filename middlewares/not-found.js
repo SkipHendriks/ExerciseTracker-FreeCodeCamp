@@ -1,5 +1,3 @@
-const notFoundHandler = (req, res, next) => {
+export const notFoundHandler = (req, res, next) => {
   return next({status: 404, message: 'not found'});
 };
-
-export default notFoundHandler;

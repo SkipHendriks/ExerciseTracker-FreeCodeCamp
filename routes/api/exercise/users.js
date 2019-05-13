@@ -1,4 +1,4 @@
-import User from '../../../models/user.js';
+import {User} from '../../../models/user.js';
 
 // [GET] endpoint for listing users
 const listUsers = async (req, res, next) => {
@@ -10,4 +10,4 @@ const listUsers = async (req, res, next) => {
   }
 };
 
-export default listUsers;
+export {listUsers};

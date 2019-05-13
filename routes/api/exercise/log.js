@@ -1,5 +1,5 @@
-import Exercise from '../../../models/exercise.js';
-import User from '../../../models/user.js';
+import {Exercise} from '../../../models/exercise.js';
+import {User} from '../../../models/user.js';
 
 import {checkDateFormat} from '../../../utils/date.js';
 
@@ -74,4 +74,4 @@ const inputFormatVerifications = (userId, fromDate, toDate, maxRecords) => {
   }
 };
 
-export default listExercises;
+export {listExercises};
