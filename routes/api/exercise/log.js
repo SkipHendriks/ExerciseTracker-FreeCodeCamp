@@ -1,74 +1,54 @@
 import {Exercise} from '../../../models/exercise.js';
 import {User} from '../../../models/user.js';
 
-import {checkDateFormat} from '../../../utils/date.js';
+import {checkDateFormat, equalDate} from '../../../utils/date.js';
+import {isEmptyObject} from '../../../utils/object.js';
 
 // [GET] endpoint for list of exercises
 const listExercises = async (req, res, next) => {
   try {
-    const {userId, from:fromDate, to:toDate, limit:maxRecords} = req.query;
-    inputFormatVerifications(userId, fromDate, toDate, maxRecords);
-    let exercises = getExercises(userId, fromDate, toDate, maxRecords);
-    let exerciseCount = countExercises(userId, fromDate, toDate);
-    let user = getUser(userId);
-    [user, exercises, exerciseCount] = await Promise.all([user, exercises, exerciseCount]);
+    const query = !isEmptyObject(req.query) ? req.query : req.body;
+    const {userId, from:fromDate, to:toDate} = query;
+    const maxRecords = query.limit && parseInt(query.limit);
+    const fromDateObject = fromDate ? new Date(fromDate): undefined;
+    const toDateObject = toDate ? new Date(toDate): undefined;
+    inputVerifications(userId, fromDate, fromDateObject, toDate, toDateObject, maxRecords);
+    let exercises = Exercise.getExerciseLog(userId, fromDateObject, toDateObject, maxRecords);
+    let user = User.findById(userId);
+    [user, exercises] = await Promise.all([user, exercises]);
     res.json({
       ...user.toObject(),
       log: exercises,
-      count: exerciseCount
+      count: exercises.length
     });
   } catch (err) {
     next(err);
   }
 };
 
-const getExercises = (userId, fromDate, toDate, maxRecords) => {
-  const query = buildExercisesQuery(userId, fromDate, toDate);
-  return Exercise.find(query).sort({date: 'asc'}).limit(parseInt(maxRecords));
-}
-
-const countExercises = (userId, fromDate, toDate) => {
-  const query = buildExercisesQuery(userId, fromDate, toDate);
-  return Exercise.countDocuments(query);
-}
-
-const buildExercisesQuery = (userId, fromDate,toDate) => {
-  let query = {userId};
-  if (fromDate || toDate) {
-    query.date = {};
-    if (fromDate) {
-      query.date.$gte = new Date(fromDate);
-    }
-    if (toDate) {
-      query.date.$lte =  new Date(toDate);
-    }
-  }
-  return query;
-}
-
-const getUser = (userId) => {
-  return User.findOne({_id: userId});
-}
-
-const inputFormatVerifications = (userId, fromDate, toDate, maxRecords) => {
-  // simple synchronous verifications
+const inputVerifications = (userId, fromDate, fromDateObject, toDate, toDateObject, maxRecords) => {
   if (!userId) {
     const err = new Error("userId undefined");
     err.status = 400;
     throw err;
-  }
-  if (fromDate && !checkDateFormat(fromDate)) {
+  } else if (fromDate && !checkDateFormat(fromDate)) {
     const err = new Error("'from' date format incorrect");
     err.status = 400;
     throw err;
-  }
-  if (toDate && !checkDateFormat(toDate)) {
+  } else if (toDate && !checkDateFormat(toDate)) {
     const err = new Error("'to' date format incorrect");
     err.status = 400;
     throw err;
-  }
-  if (maxRecords && Number.isNaN(parseInt(maxRecords))) {
-    const err = new Error("limit is NaN");
+  } else if (toDate && fromDate && fromDateObject > toDateObject) {
+    const err = new Error("'to' date comes before 'from' date");
+    err.status = 400;
+    throw err;
+  } else if (toDate && fromDate && equalDate(fromDateObject, toDateObject)) {
+    const err = new Error("'to' is equal to 'from' date");
+    err.status = 400;
+    throw err;
+  } else if (Number.isNaN(maxRecords)) {
+    const err = new Error("limit is NaN (Not a Number)");
     err.status = 400;
     throw err;
   }

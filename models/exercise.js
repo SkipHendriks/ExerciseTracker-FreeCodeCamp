@@ -13,7 +13,7 @@ const exerciseSchema = new Schema({
     required: true,
     validate: {
       validator: async (userId) => {
-        const user = await User.findOne({_id: userId});
+        const user = await User.findById(userId);
         return user !== null;
       },
       message: "userId doesn't exist"
@@ -34,6 +34,25 @@ const exerciseSchema = new Schema({
     required: true,
   }
 });
+
+exerciseSchema.statics.getExerciseLog = function (userId, fromDate, toDate, maxRecords) {
+  const query = buildExercisesQuery(userId, fromDate, toDate);
+  return Exercise.find(query).limit(maxRecords).select(['-userId']);
+}
+
+const buildExercisesQuery = (userId, fromDate, toDate) => {
+  let query = {userId};
+  if (fromDate || toDate) {
+    query.date = {};
+    if (fromDate) {
+      query.date.$gte = fromDate;
+    }
+    if (toDate) {
+      query.date.$lte = toDate;
+    }
+  }
+  return query;
+}
 
 const hiddenPlugin = mongooseHidden();
 exerciseSchema.plugin(hiddenPlugin);

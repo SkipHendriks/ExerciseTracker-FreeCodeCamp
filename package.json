@@ -5,12 +5,13 @@
   "main": "server.js",
   "//": "next line is only there for esm (experimental bundler) support",
   "scripts": {
-    "start": "node --experimental-modules server.js"
+    "start": "node --experimental-modules server.js",
+    "test": "NODE_ENV=test mocha --timeout 10000 --recursive --exit --require esm"
   },
   "dependencies": {
     "express": "^4.16.4",
-    "mongoose": "^5.5.7",
-    "mongodb": "^3.2.4",
+    "mongoose": "^5.5.10",
+    "mongodb": "^3.2.5",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "shortid": "^2.2.14",
@@ -18,8 +19,17 @@
     "mongoose-unique-validator": "^2.0.3",
     "mongoose-hidden": "^1.6.1"
   },
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "esm": "^3.2.25",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "sinon": "^7.3.2",
+    "sinon-mongoose": "^2.3.0",
+    "sinon-chai": "^3.3.0"
+  },
   "engines": {
-    "node": "12.0.0"
+    "node": "12.3.0"
   },
   "repository": {
     "url": "https://github.com/SkipHendriks/ExerciseTracker-FreeCodeCamp"

@@ -1,4 +1,5 @@
 import path from 'path';
+// ignore following Glitch error warning. works just fine
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 export const index = (req, res) => {

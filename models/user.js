@@ -15,8 +15,12 @@ var userSchema = new Schema({
     type: String,
     default: shortid.generate,
     required: true
-  },
+  }
 });
+
+userSchema.statics.findById = function (_id) {
+  return this.findOne({_id});
+}
 
 userSchema.plugin(uniqueValidator);
 const hiddenPlugin = mongooseHidden({defaultHidden: {__v: true}});

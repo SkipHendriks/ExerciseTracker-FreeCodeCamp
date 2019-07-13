@@ -12,6 +12,7 @@ export const errorHandler = (err, req, res, next) => {
     errCode = err.status || 500;
     errMessage = err.message || 'Internal Server Error';
   }
-  res.status(errCode).type('txt')
-    .send(errMessage);
+  res.status(errCode)
+  res.type('txt')
+  res.send(errMessage);
 };

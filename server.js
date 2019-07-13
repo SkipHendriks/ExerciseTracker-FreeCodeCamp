@@ -14,7 +14,10 @@ import {notFoundHandler} from './middlewares/not-found.js';
 
 const app = express();
 
-mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/fcc-exercise-tracker', { useNewUrlParser: true,  useCreateIndex: true});
+
+const MONGO_URI = process.env.NODE_ENV == 'test' ? process.env.MLAB_TEST_URI : process.env.MLAB_URI;
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true,  useCreateIndex: true});
 
 // enable cors to allow testing by FreeCodeCamp
 app.use(cors());
@@ -26,7 +29,15 @@ app.use('/', router);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
+app.set('json replacer', function (key, value) {
+  if (this[key] instanceof Date) {
+    value = this[key].toDateString();
+  }
+  return value;
+});
 
-const listener = app.listen(process.env.PORT || 3000, () => {
+const listener = app.listen(process.env.NODE_ENV == 'test'? 3001 : 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+export {app};
