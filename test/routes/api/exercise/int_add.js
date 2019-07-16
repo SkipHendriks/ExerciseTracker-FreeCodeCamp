@@ -1,36 +1,40 @@
+/* eslint-disable no-unused-expressions */
 
-import chai, {expect} from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import mongoose from 'mongoose';
-import shortid, {isValid} from 'shortid';
+import shortid, { isValid } from 'shortid';
 
-import {app} from '../../../../server.js';
-import {User} from '../../../../models/user.js'
-import {Exercise} from '../../../../models/exercise.js'
+import app from '../../../../server.js';
+import User from '../../../../models/user.js';
+import Exercise from '../../../../models/exercise.js';
 
 chai.use(chaiHttp);
 
-describe('Integration::add Route', function() {
-  
+describe('Integration::add Route', () => {
   before(async () => {
     try {
-      await mongoose.connect(process.env.MLAB_TEST_URI, { useNewUrlParser: true,  useCreateIndex: true});
+      if (mongoose.connections.length > 0) {
+        await mongoose.disconnect();
+      }
+      await mongoose.connect(process.env.MLAB_TEST_URI, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+      });
       await mongoose.connection.dropDatabase();
     } catch (err) {
       console.error(err);
     }
   });
- 
-  after((done) => {
+
+  after(async () => {
     try {
-      mongoose.disconnect();
-      done();
+      await mongoose.disconnect();
     } catch (err) {
       console.error(err);
-    }    
+    }
   });
-  
-  
+
   afterEach(async () => {
     try {
       await mongoose.connection.dropDatabase();
@@ -38,9 +42,8 @@ describe('Integration::add Route', function() {
       console.error(err);
     }
   });
-  
+
   it('Should return new json exercise object (form)', async () => {
-    
     const _id = shortid.generate();
     const username = 'user1';
     const description = 'swimming';
@@ -48,12 +51,17 @@ describe('Integration::add Route', function() {
     const dateString = '2010-04-27';
     const dateObject = new Date(dateString);
 
-    const user = await new User({username, _id}).save();
+    await new User({ username, _id }).save();
 
     const res = await chai.request(app)
-                          .post('/api/exercise/add/')
-                          .type('form')
-                          .send({userId: _id, description, duration, date: dateString});
+      .post('/api/exercise/add/')
+      .type('form')
+      .send({
+        userId: _id,
+        description,
+        duration,
+        date: dateString,
+      });
 
     expect(res).to.have.status(200);
     expect(res).to.be.json;
@@ -68,11 +76,9 @@ describe('Integration::add Route', function() {
     expect(res.body.date).to.equal(dateObject.toDateString());
     expect(res.body).to.not.have.property('__v');
     expect(isValid(res.body._id)).to.be.true;
-
   });
-  
+
   it('Should return new json exercise object (json)', async () => {
-    
     const _id = shortid.generate();
     const username = 'user1';
     const description = 'swimming';
@@ -80,12 +86,17 @@ describe('Integration::add Route', function() {
     const dateString = '2010-04-27';
     const dateObject = new Date(dateString);
 
-    const user = await new User({username, _id}).save();
+    await new User({ username, _id }).save();
 
     const res = await chai.request(app)
-                          .post('/api/exercise/add/')
-                          .type('json')
-                          .send({userId: _id, description, duration, date: dateString});
+      .post('/api/exercise/add/')
+      .type('json')
+      .send({
+        userId: _id,
+        description,
+        duration,
+        date: dateString,
+      });
 
     expect(res).to.have.status(200);
     expect(res).to.be.json;
@@ -100,11 +111,9 @@ describe('Integration::add Route', function() {
     expect(res.body.date).to.equal(dateObject.toDateString());
     expect(res.body).to.not.have.property('__v');
     expect(isValid(res.body._id)).to.be.true;
-
   });
-  
-  it('Should save new exercise object to mongo (form)', async () => {
 
+  it('Should save new exercise object to mongo (form)', async () => {
     const _id = shortid.generate();
     const username = 'user1';
     const description = 'swimming';
@@ -112,21 +121,29 @@ describe('Integration::add Route', function() {
     const dateString = '2010-04-27';
     const dateObject = new Date(dateString);
 
-    const user = await new User({username, _id}).save();
+    await new User({ username, _id }).save();
 
-    const res = await chai.request(app)
-                          .post('/api/exercise/add/')
-                          .type('form')
-                          .send({userId: _id, description, duration, date: dateString});
-    
-    const exercise = await Exercise.findOne({userId: _id, description, duration, date: dateObject});
-    
+    await chai.request(app)
+      .post('/api/exercise/add/')
+      .type('form')
+      .send({
+        userId: _id,
+        description,
+        duration,
+        date: dateString,
+      });
+
+    const exercise = await Exercise.findOne({
+      userId: _id,
+      description,
+      duration,
+      date: dateObject,
+    });
+
     expect(exercise).to.not.be.null;
-
   });
 
   it('Should save new exercise object to mongo (json)', async () => {
-
     const _id = shortid.generate();
     const username = 'user1';
     const description = 'swimming';
@@ -134,17 +151,25 @@ describe('Integration::add Route', function() {
     const dateString = '2010-04-27';
     const dateObject = new Date(dateString);
 
-    const user = await new User({username, _id}).save();
+    await new User({ username, _id }).save();
 
-    const res = await chai.request(app)
-                          .post('/api/exercise/add/')
-                          .type('json')
-                          .send({userId: _id, description, duration, date: dateString});
-    
-    const exercise = await Exercise.findOne({userId: _id, description, duration, date: dateObject});
-    
+    await chai.request(app)
+      .post('/api/exercise/add/')
+      .type('json')
+      .send({
+        userId: _id,
+        description,
+        duration,
+        date: dateString,
+      });
+
+    const exercise = await Exercise.findOne({
+      userId: _id,
+      description,
+      duration,
+      date: dateObject,
+    });
+
     expect(exercise).to.not.be.null;
-
   });
-  
 });

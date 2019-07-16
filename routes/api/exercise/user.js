@@ -1,10 +1,10 @@
-import {User} from '../../../models/user.js';
+import User from '../../../models/user.js';
 
 // [GET] endpoint for finding the corresponding username
 const getUser = async (req, res, next) => {
-  try {    
-    const _id = req.params._id || req.query.userId || req.body._id
-    
+  try {
+    const _id = req.params._id || req.query.userId || req.body._id;
+
     inputValidation(_id);
 
     const user = await User.findById(_id);
@@ -17,10 +17,10 @@ const getUser = async (req, res, next) => {
 
 const inputValidation = (_id) => {
   if (!_id) {
-    const err = new Error("_id undefined");
+    const err = new Error('_id undefined');
     err.status = 400;
     throw err;
   }
-}
+};
 
-export {getUser};
+export default getUser;

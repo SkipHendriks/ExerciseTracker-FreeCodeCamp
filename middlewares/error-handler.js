@@ -1,5 +1,6 @@
-export const errorHandler = (err, req, res, next) => {
-  let errCode, errMessage;
+const errorHandler = (err, req, res, next) => {
+  let errCode;
+  let errMessage;
 
   if (err.errors) {
     // mongoose validation error
@@ -12,7 +13,9 @@ export const errorHandler = (err, req, res, next) => {
     errCode = err.status || 500;
     errMessage = err.message || 'Internal Server Error';
   }
-  res.status(errCode)
-  res.type('txt')
+  res.status(errCode);
+  res.type('txt');
   res.send(errMessage);
 };
+
+export default errorHandler;

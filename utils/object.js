@@ -1,7 +1,7 @@
 const isEmptyObject = (obj) => {
   let isEmpty;
   // typeof null == 'object'; true
-  if (obj && typeof obj == 'object') {
+  if (obj && typeof obj === 'object') {
     isEmpty = obj.constructor === Object && Object.entries(obj).length === 0;
   } else {
     isEmpty = false;
@@ -9,4 +9,4 @@ const isEmptyObject = (obj) => {
   return isEmpty;
 };
 
-export {isEmptyObject};
+export default isEmptyObject;
