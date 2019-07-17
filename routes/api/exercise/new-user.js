@@ -1,5 +1,3 @@
-// TODO accept params as well
-
 import User from '../../../models/user.js';
 
 // [POST] endpoint for adding a user
