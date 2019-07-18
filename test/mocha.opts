@@ -1,0 +1,5 @@
+# mocha.opts
+  --timeout 10000
+  --recursive
+  --exit
+  --require reify
