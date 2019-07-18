@@ -1,3 +1,9 @@
 {
-  "eslint.enable": true
+  "eslint.enable": true,
+  "mocha.requires": ["reify"],
+  "mocha.options": {
+    "timeout": 10000,
+    "exit": true
+  },
+  "mocha.parallelTests": 1
 }
